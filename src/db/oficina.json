@@ -3,7 +3,7 @@
         {
             "code_office": "BCN-ES",
             "city": "Barcelona",
-            "country": "Espa\u00f1a",
+            "country": "España",
             "region": "Barcelona",
             "postal_code": "08019",
             "movil": "+34 93 3561182",
@@ -36,7 +36,7 @@
         {
             "code_office": "MAD-ES",
             "city": "Madrid",
-            "country": "Espa\u00f1a",
+            "country": "España",
             "region": "Madrid",
             "postal_code": "28032",
             "movil": "+34 91 7514487",
@@ -80,7 +80,7 @@
         {
             "code_office": "TAL-ES",
             "city": "Talavera de la Reina",
-            "country": "Espa\u00f1a",
+            "country": "España",
             "region": "Castilla-LaMancha",
             "postal_code": "45632",
             "movil": "+34 925 867231",
@@ -91,7 +91,7 @@
         {
             "code_office": "TOK-JP",
             "city": "Tokyo",
-            "country": "Jap\u00f3n",
+            "country": "Japon",
             "region": "Chiyoda-Ku",
             "postal_code": "102-8578",
             "movil": "+81 33 224 5000",
