@@ -31,6 +31,7 @@ async function getinfoEmpleadoByJefeCode(codeBoss) {
 // 5. Devuelve un listado con el nombre, apellidos y puesto de aquellos empleados que no sean representantes de ventas.
 
 async function getEmpleadoByRol(rol, es) {
+    // * Preguntar por este ejercicio
     let response;
     if(es) {
         response = await fetch(`http://localhost:3000/employee?position=${rol}`)
