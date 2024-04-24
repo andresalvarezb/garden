@@ -1,8 +1,8 @@
 // 1. Devuelve un listado con el código de oficina y la ciudad donde hay oficinas.
-
 export default async function getOfficeCodeAndCities() {
     const response = await fetch("http://localhost:3000/offices");
     const oficinas = await response.json();
+    
 
     const infoOficinas = oficinas.map(oficina => {
         let { code_office, city } = oficina
