@@ -6,7 +6,7 @@
   "scripts": {
     "server": "json-server --watch source/db/db.json",
     "oficina": "json-server --watch src/db/oficina.json",
-    "empleado": "json-server --watch src/db/empleado.json",
+    "empleado": "json-server --watch src/db/empleado.json -p 5501",
     "cliente": "json-server --watch src/db/clientes.json",
     "pedido": "json-server --watch src/db/pedido.json",
     "pago": "json-server --watch src/db/pago.json",

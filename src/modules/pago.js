@@ -66,5 +66,3 @@ async function getFormasDePago() {
 }
 
 getFormasDePago()
-
-
