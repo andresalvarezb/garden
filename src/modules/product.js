@@ -4,7 +4,7 @@ async function getOrnamentales() {
     const response = await fetch("http://localhost:3000/products?gama=Ornamentales&stock_gt=100&_sort=price_sale")
     const productos = await response.json()
 
-    console.log(productos);
+    console.log(productos.reverse());
 }
 
 getOrnamentales()
