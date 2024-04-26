@@ -1,16 +1,33 @@
+async function getClientes() {
+    const response = await fetch("http://localhost:3000/clients")
+    const clientes = await response.json()
+    return clientes
+}
+
+async function getClientesPorPais(pais) {
+    const response = await fetch(`http://localhost:3000/clients?country=${pais}`)
+    const clientes = await response.json()
+    return clientes
+}
+
+async function getClientesPorCiudad(ciudad) {
+    const response = await fetch(`http://localhost:3000/clients?country=${region}`)
+    const clientes = await response.json()
+    return clientes
+}
+
+
 // 6. Devuelve un listado con el nombre de los todos los clientes españoles.
 
-async function getClientesFromSpain() {
-    const response = await fetch("http://localhost:3000/clients?country=Spain")
-    const clientes = await response.json()
-    
+async function getClientesDeEspana() {
+    const clientes = await getClientesPorPais("Spain")
+
     const nombresClientes = clientes.map(cliente => {
-        let {client_name} = cliente
+        let { client_name } = cliente
         return {
             client_name
         }
     })
-
     console.log(nombresClientes);
 }
 
@@ -19,6 +36,7 @@ async function getClientesFromSpain() {
 // 16. Devuelve un listado con todos los clientes que sean de la ciudad de Madrid y cuyo representante de ventas tenga el código de empleado 11 o 30.
 
 async function getClientesMadrid(prams) {
+    
     const response1 = await fetch("http://localhost:3000/clients?city=Madrid&code_employee_sales_manager=11")
     const response2 = await fetch("http://localhost:3000/clients?city=Madrid&code_employee_sales_manager=30")
     const clientes1 = await response1.json()
@@ -38,13 +56,11 @@ async function getClientes() {
     const infoClientes = []
 
     data.forEach(cliente => {
-        const {client_name, code_employee_sales_manager} = cliente
+        const { client_name, code_employee_sales_manager } = cliente
 
-        infoClientes.push({client_name, code_employee_sales_manager})
+        infoClientes.push({ client_name, code_employee_sales_manager })
     })
-
     return infoClientes
-    // console.log(infoClientes)
 }
 
 async function getEmpleados() {
@@ -53,24 +69,24 @@ async function getEmpleados() {
     return empleados
 }
 
-function getRepresentanteVentas(infoClientes, empleados) {
-
-    infoClientes.forEach(info => {
-
-        if(info.code_employee_sales_manager == )
-    })
-}
 
 async function getClienteYRepesentanteDeVentas() {
-    // 1. obtener data del cliente y codigo del representante
 
     let infoClientes = await getClientes()
     const empleados = await getEmpleados()
-    const representanteVentas = getRepresentanteVentas(infoClientes, empleados)
-    // console.log(empleados);
-    console.log(...clientes, ...representanteVentas);
 
+    infoClientes.forEach(cliente => {
+        let { code_employee_sales_manager } = cliente
+        empleados.forEach(empleado => {
+            let { id } = empleado
+            if (code_employee_sales_manager == id) {
+                infoClientes.code_employee_sales_manager = `${empleado["name"]} ${empleado["lastname1"]}`
+            }
+            console.log(infoClientes);
+        })
+    })
+    // console.log(infoClientes);
 }
-// getClienteYRepesentanteDeVentas()
+getClienteYRepesentanteDeVentas()
 
 
