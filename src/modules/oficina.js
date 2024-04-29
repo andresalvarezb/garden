@@ -1,32 +1,25 @@
-// 1. Devuelve un listado con el código de oficina y la ciudad donde hay oficinas.
-export default async function getOfficeCodeAndCities() {
+async function getOficinas() {
     const response = await fetch("http://localhost:3000/offices");
-    const oficinas = await response.json();
-    
-
-    const infoOficinas = oficinas.map(oficina => {
-        let { code_office, city } = oficina
-        return { code_office, city }
-    });
-
-    console.log(infoOficinas);
+    return await response.json();
 }
 
-// getOfficeCodeAndCities()
+async function getOficinasPorPais(pais) {
+    const response = await fetch(`http://localhost:3000/offices?country=${pais}`);
+    return await response.json();
+}
+
+// 1. Devuelve un listado con el código de oficina y la ciudad donde hay oficinas.
+async function getCodigoYCiudadPorOficina() {
+    const oficinas = await getOficinas();
+    const infoOficinas = oficinas.map(({ code_office, city }) => ({ code_office, city }));
+    console.log(infoOficinas);
+}
+// getCodigoYCiudadPorOficina()
 
 // 2. Devuelve un listado con la ciudad y el teléfono de las oficinas de España.
-
-async function getOfficeCitiAndPhone() {
-    const response = await fetch("http://localhost:3000/offices");
-    const oficinas = await response.json();
-
-    const oficinasEspana = oficinas.filter(oficina => oficina.country == "España")
-    const infoOficinas = oficinasEspana.map(oficina => {
-        let { city, movil } = oficina
-        return { city, movil }
-    });
-
+async function getCiudadYTelefonoPorPais(pais) {
+    const oficinas = await getOficinasPorPais(pais);
+    const infoOficinas = oficinas.map(({ city, movil }) => ({ city, movil }));
     console.log(infoOficinas);
 }
-
-getOfficeCitiAndPhone()
+getCiudadYTelefonoPorPais("Francia")

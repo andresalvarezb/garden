@@ -21,13 +21,7 @@ async function getClientesPorCiudad(ciudad) {
 
 async function getClientesDeEspana() {
     const clientes = await getClientesPorPais("Spain")
-
-    const nombresClientes = clientes.map(cliente => {
-        let { client_name } = cliente
-        return {
-            client_name
-        }
-    })
+    const nombresClientes = clientes.map(({client_name}) => ({client_name}))
     console.log(nombresClientes);
 }
 
