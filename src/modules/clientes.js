@@ -1,7 +1,8 @@
-import getEmpleadoPorId from "./empleados.js"
+import {getEmpleadoPorId} from "./empleados.js"
+import { getOficinaPorId } from "./oficina.js"
 import getPagos from "./pago.js"
 
-async function getClientes() {
+export async function getClientes() {
     const response = await fetch("http://localhost:3000/clients")
     const clientes = await response.json()
     return clientes
@@ -19,8 +20,8 @@ async function getClientesPorPais(pais) {
     return clientes
 }
 
-async function getClientesPorCiudad(ciudad) {
-    const response = await fetch(`http://localhost:3000/clients?country=${region}`)
+export async function getClientesPorCiudad(ciudad) {
+    const response = await fetch(`http://localhost:3000/clients?city=${ciudad}`)
     const clientes = await response.json()
     return clientes
 }
@@ -47,6 +48,8 @@ async function getClientesMadrid(prams) {
 }
 
 // getClientesMadrid()
+
+
 
 // CONSULTA MULTITABLA
 
@@ -90,4 +93,89 @@ async function getClientesConPagoYRepresentanteDeVentas() {
     console.log(await Promise.all(data));
 }
 
-getClientesConPagoYRepresentanteDeVentas()
+// getClientesConPagoYRepresentanteDeVentas()
+
+
+// 3. Devuelve un listado que muestre los clientes que no han realizado ningún pago y los que no han realizado ningún pedido.
+
+async function getClientesSinPago() {
+    const pagos = await getPagos()
+    const clientes = await getClientes()
+
+    const codeClientesFromPayments = pagos.map(({code_client}) => code_client)
+    const clientesSinPago = clientes.filter(({client_code}) => !codeClientesFromPayments.includes(client_code))
+
+    console.log(clientesSinPago);
+}
+
+// getClientesSinPago()
+
+// 4. Devuelve el nombre de los clientes que han hecho pagos y el nombre de sus representantes junto con la ciudad de la oficina a la que pertenece el representante.
+async function getClientesConPagoYRepresentanteDeVentasYCiudad() {
+    const pagos = await getPagos()
+    const codesClient = pagos.map(({ code_client, payment }) => ({ code_client, payment }))
+
+    const data = codesClient.map(async ({ code_client, payment }) => {
+        const cliente = await getClienteById(code_client)
+        const representante = await getEmpleadoPorId(cliente[0].code_employee_sales_manager)
+        const oficina = await getOficinaPorId(representante[0].code_office)
+
+        return {
+            payment,
+            "client_name": cliente[0].client_name,
+            "sales_manager": `${representante[0].name} ${representante[0].lastname1}`,
+            "ofina": oficina[0].city
+
+        }
+    })
+
+    console.log(await Promise.all(data));
+}
+// getClientesConPagoYRepresentanteDeVentasYCiudad()
+
+// 5. Devuelve el nombre de los clientes que no hayan hecho pagos y el nombre de sus representantes junto con la ciudad de la oficina a la que pertenece el representante.
+async function getClientesSinPagoYRepresentanteDeVentasYCiudad() {
+    const pagos = await getPagos()
+    const clientes = await getClientes()
+
+    const codeClientesFromPayments = pagos.map(({code_client}) => code_client)
+    const clientesSinPago = clientes.filter(({client_code}) => !codeClientesFromPayments.includes(client_code))
+
+    const data = clientesSinPago.map(async ({client_name, code_employee_sales_manager}) => {
+        const representante = await getEmpleadoPorId(code_employee_sales_manager)
+        const oficina = await getOficinaPorId(representante[0].code_office)
+        return {
+            client_name,
+            "sales_manager": `${representante[0].name} ${representante[0].lastname1}`,
+            "ofina": oficina[0].city
+        }
+    })
+
+
+    console.log(await Promise.all(data));
+}
+
+// getClientesSinPagoYRepresentanteDeVentasYCiudad()
+
+
+// 7. Devuelve el nombre de los clientes y el nombre de sus representantes junto con la ciudad de la oficina a la que pertenece el representante.
+
+async function getClienteYRepresentanteDeVentasYCiudad() {
+    const clientes = await getClientes()
+    const clientesInfo = clientes.map(({ client_name, code_employee_sales_manager }) => ({ client_name, code_employee_sales_manager }))
+
+    // obteniendo al representante de ventas
+    const data = clientesInfo.map(async ({ client_name, code_employee_sales_manager }) => {
+        const representante = (await getEmpleadoPorId(code_employee_sales_manager))
+        const oficina = await getOficinaPorId(representante[0].code_office)
+
+        return {
+            client_name,
+            "sales_manager": `${representante[0].name} ${representante[0].lastname1}`,
+            "city": oficina[0].city
+        }
+    })
+    console.log(await Promise.all(data));
+}
+
+getClienteYRepresentanteDeVentasYCiudad()

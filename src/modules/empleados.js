@@ -1,26 +1,26 @@
 async function getEmpleados() {
-    const response = (await fetch(`http://localhost:3000/employee`))
+    const response = await fetch(`http://localhost:5501/employee`)
     return await response.json()
 }
 
 async function getEmpleadoPorCodigo(codigo) {
-    const response = (await fetch(`http://localhost:3000/employee?code_boss=${codigo}`))
+    const response = await fetch(`http://localhost:5501/employee?code_boss=${codigo}`)
     return await response.json()
 }
 
-export default async function getEmpleadoPorId(id) {
-    const response = (await fetch(`http://localhost:5501/employee?employee_code=${id}`))
+export async function getEmpleadoPorId(id) {
+    const response = await fetch(`http://localhost:5501/employee?employee_code=${id}`)
     return await response.json()
 }
 
-console.log(getEmpleadoPorId(1));
+// console.log(getEmpleadoPorId(1));
 
 async function getEmpleadoPorRol(rol, es=true) {
     let response
     if(!es) {
-        response = (await fetch(`http://localhost:3000/employee?position=!${rol}`))
+        response = (await fetch(`http://localhost:5501/employee?position=!${rol}`))
     }
-    response = (await fetch(`http://localhost:3000/employee?position=${rol}`))
+    response = (await fetch(`http://localhost:5501/employee?position=${rol}`))
     return await response.json()
 }
 
@@ -63,3 +63,25 @@ async function getEmpleadoByRol(rol, es) {
 }
 
 // getEmpleadoByRol("Representante Ventas")
+
+
+// MULTITABLA
+// 8. Devuelve un listado con el nombre de los empleados junto con el nombre de sus jefes.
+
+async function getEmpleadoConJefe() {
+    const empleados = await getEmpleados()
+
+    const data = await Promise.all(empleados.map(async (empleado) => {
+        const jefe = await getEmpleadoPorId(empleado.code_boss)
+        // console.log(jefe[0].name)
+        return {
+            "name": empleado.name,
+            // Preguntar como acceder a las propiedades de dicho objeto
+            "boss": jefe[0].name
+        }
+    }))
+
+    console.log(data);
+}
+
+getEmpleadoConJefe()
