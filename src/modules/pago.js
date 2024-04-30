@@ -25,19 +25,10 @@ async function getClientesPagosMayorA2008() {
 // getClientesPagosMayorA2008()
 
 // 13. Devuelve un listado con todos los pagos que se realizaron en el año 2008 mediante Paypal. Ordene el resultado de mayor a menor.
-function pagos2008(pago) {
-    let { date_payment } = pago
-
-    const datePayment = new Date(date_payment)
-    return datePayment.getFullYear() == 2008 ? true : false
-
-}
-
 async function getPagosPaypal() {
     const response = await fetch("http://localhost:3000/payments?payment=PayPal")
     const pagos = await response.json()
-
-    const pagosRealizados = pagos.filter(({}) => pedidosPorAno(date_payment, 2008))
+    const pagosRealizados = pagos.filter(({date_payment}) => pedidosPorAno(date_payment, 2008))
 
     console.log(pagosRealizados);
 }
@@ -47,8 +38,7 @@ async function getPagosPaypal() {
 // 14. Devuelve un listado con todas las formas de pago que aparecen en la tabla pago. Tenga en cuenta que no deben aparecer formas de pago repetidas.
 
 async function getFormasDePago() {
-    const response = await fetch("http://localhost:3000/payments")
-    const pagos = await response.json()
+    const pagos = await getPagos()
     const formasDePago = []
 
     pagos.forEach(pago => {

@@ -8,6 +8,13 @@ async function getEmpleadoPorCodigo(codigo) {
     return await response.json()
 }
 
+export default async function getEmpleadoPorId(id) {
+    const response = (await fetch(`http://localhost:5501/employee?employee_code=${id}`))
+    return await response.json()
+}
+
+console.log(getEmpleadoPorId(1));
+
 async function getEmpleadoPorRol(rol, es=true) {
     let response
     if(!es) {
