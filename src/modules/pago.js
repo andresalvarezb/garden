@@ -1,7 +1,7 @@
-import pedidosPorAno from "../utils"
+import pedidosPorAno from '../utils/index.js'
 
-async function getPagos() {
-    const response = await fetch("http://localhost:3000/payments")
+export default async function getPagos() {
+    const response = await fetch("http://localhost:5502/payments")
     return await response.json()
 };
 
@@ -26,7 +26,7 @@ async function getClientesPagosMayorA2008() {
 
 // 13. Devuelve un listado con todos los pagos que se realizaron en el año 2008 mediante Paypal. Ordene el resultado de mayor a menor.
 async function getPagosPaypal() {
-    const response = await fetch("http://localhost:3000/payments?payment=PayPal")
+    const response = await fetch("http://localhost:5502/payments?payment=PayPal")
     const pagos = await response.json()
     const pagosRealizados = pagos.filter(({date_payment}) => pedidosPorAno(date_payment, 2008))
 
@@ -52,4 +52,4 @@ async function getFormasDePago() {
     console.log(formasDePago);
 }
 
-getFormasDePago()
+// getFormasDePago()

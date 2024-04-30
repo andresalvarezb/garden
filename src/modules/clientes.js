@@ -1,7 +1,14 @@
 import getEmpleadoPorId from "./empleados.js"
+import getPagos from "./pago.js"
 
 async function getClientes() {
     const response = await fetch("http://localhost:3000/clients")
+    const clientes = await response.json()
+    return clientes
+}
+
+async function getClienteById(id) {
+    const response = await fetch(`http://localhost:3000/clients?client_code=${id}`)
     const clientes = await response.json()
     return clientes
 }
@@ -44,9 +51,6 @@ async function getClientesMadrid(prams) {
 // CONSULTA MULTITABLA
 
 // 1. Obtén un listado con el nombre de cada cliente y el nombre y apellido de su representante de ventas.
-// 1. De cada cliente obtener nombre, apellido y representante de ventas
-// 2. buscar el representante de ventas dado su ID y retornar su nombre y apellido correspondiente
-
 async function getClienteYRepresentanteDeVentas() {
     const clientes = await getClientes()
     const clientesInfo = clientes.map(({ client_name, code_employee_sales_manager }) => ({ client_name, code_employee_sales_manager }))
@@ -57,12 +61,33 @@ async function getClienteYRepresentanteDeVentas() {
 
         return {
             client_name,
-            "name": representante[0].name,
-            "lastname1": representante[0].lastname1,
-            "lastname2": representante[0].lastname2
+            "sales_manager": `${representante[0].name} ${representante[0].lastname1}`
         }
     })
     console.log(await Promise.all(data));
 }
 
-getClienteYRepresentanteDeVentas()
+// getClienteYRepresentanteDeVentas()
+
+// 2. Muestra el nombre de los clientes que hayan realizado pagos junto con el nombre de sus representantes de ventas.
+
+async function getClientesConPagoYRepresentanteDeVentas() {
+    const pagos = await getPagos()
+    const codesClient = pagos.map(({ code_client, payment }) => ({ code_client, payment }))
+    // console.log(codesClient);
+
+    const data = codesClient.map(async ({ code_client, payment }) => {
+        const cliente = await getClienteById(code_client)
+        const representante = await getEmpleadoPorId(cliente[0].code_employee_sales_manager)
+
+        return {
+            payment,
+            "client_name": cliente[0].client_name,
+            "sales_manager": `${representante[0].name} ${representante[0].lastname1}`
+        }
+    })
+
+    console.log(await Promise.all(data));
+}
+
+getClientesConPagoYRepresentanteDeVentas()

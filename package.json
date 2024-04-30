@@ -9,7 +9,7 @@
     "empleado": "json-server --watch src/db/empleado.json -p 5501",
     "cliente": "json-server --watch src/db/clientes.json",
     "pedido": "json-server --watch src/db/pedido.json",
-    "pago": "json-server --watch src/db/pago.json",
+    "pago": "json-server --watch src/db/pago.json -p 5502",
     "producto": "json-server --watch src/db/product.json"
   },
   "keywords": [],
