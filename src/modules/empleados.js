@@ -84,4 +84,26 @@ async function getEmpleadoConJefe() {
     console.log(data);
 }
 
-getEmpleadoConJefe()
+// getEmpleadoConJefe()
+
+
+// 9. Devuelve un listado que muestre el nombre de cada empleados, el nombre de su jefe y el nombre del jefe de sus jefe.
+async function getEmpleadoConJefes() {
+    const empleados = await getEmpleados()
+
+    const data = await Promise.all(empleados.map(async (empleado) => {
+        const jefe = await getEmpleadoPorId(empleado.code_boss)
+        const jefeDelJefe = await getEmpleadoPorId(jefe[0].code_boss)
+        console.log(jefeDelJefe)
+        return {
+            "empleado": empleado.name,
+            // Preguntar como acceder a las propiedades de dicho objeto
+            "jefe_1": jefe[0].name,
+            "jefe_2": jefeDelJefe[0].name
+        }
+    }))
+
+    console.log(data);
+}
+// getEmpleadoConJefes()
+
