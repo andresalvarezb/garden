@@ -4,13 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "npm run cliente & npm run empleado & npm run producto & npm run oficina & npm run pago & npm run pedido",
     "server": "json-server --watch source/db/db.json",
     "oficina": "json-server --watch src/db/oficina.json -p 5503",
     "empleado": "json-server --watch src/db/empleado.json -p 5501",
-    "cliente": "json-server --watch src/db/clientes.json",
-    "pedido": "json-server --watch src/db/pedido.json",
+    "cliente": "json-server --watch src/db/clientes.json -p 3000",
+    "pedido": "json-server --watch src/db/pedido.json -p 5504",
     "pago": "json-server --watch src/db/pago.json -p 5502",
-    "producto": "json-server --watch src/db/product.json"
+    "producto": "json-server --watch src/db/product.json -p 5505"
   },
   "keywords": [],
   "author": "",

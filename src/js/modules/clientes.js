@@ -10,20 +10,17 @@ export async function getClientes() {
 
 async function getClienteById(id) {
     const response = await fetch(`http://localhost:3000/clients?client_code=${id}`)
-    const clientes = await response.json()
-    return clientes
+    return await response.json()
 }
 
 async function getClientesPorPais(pais) {
     const response = await fetch(`http://localhost:3000/clients?country=${pais}`)
-    const clientes = await response.json()
-    return clientes
+    return await response.json()
 }
 
 export async function getClientesPorCiudad(ciudad) {
     const response = await fetch(`http://localhost:3000/clients?city=${ciudad}`)
-    const clientes = await response.json()
-    return clientes
+    return await response.json()
 }
 
 
@@ -39,7 +36,7 @@ async function getClientesDeEspana() {
 
 // 16. Devuelve un listado con todos los clientes que sean de la ciudad de Madrid y cuyo representante de ventas tenga el código de empleado 11 o 30.
 
-async function getClientesMadrid(prams) {
+export async function getClientesMadrid() {
     const response1 = await fetch("http://localhost:3000/clients?city=Madrid&code_employee_sales_manager=11")
     const response2 = await fetch("http://localhost:3000/clients?city=Madrid&code_employee_sales_manager=30")
     const clientes1 = await response1.json()
@@ -54,7 +51,7 @@ async function getClientesMadrid(prams) {
 // CONSULTA MULTITABLA
 
 // 1. Obtén un listado con el nombre de cada cliente y el nombre y apellido de su representante de ventas.
-async function getClienteYRepresentanteDeVentas() {
+export async function getClienteYRepresentanteDeVentas() {
     const clientes = await getClientes()
     const clientesInfo = clientes.map(({ client_name, code_employee_sales_manager }) => ({ client_name, code_employee_sales_manager }))
 
@@ -74,7 +71,7 @@ async function getClienteYRepresentanteDeVentas() {
 
 // 2. Muestra el nombre de los clientes que hayan realizado pagos junto con el nombre de sus representantes de ventas.
 
-async function getClientesConPagoYRepresentanteDeVentas() {
+export async function getClientesConPagoYRepresentanteDeVentas() {
     const pagos = await getPagos()
     const codesClient = pagos.map(({ code_client, payment }) => ({ code_client, payment }))
     // console.log(codesClient);
@@ -98,7 +95,7 @@ async function getClientesConPagoYRepresentanteDeVentas() {
 
 // 3. Devuelve un listado que muestre los clientes que no han realizado ningún pago y los que no han realizado ningún pedido.
 
-async function getClientesSinPago() {
+export async function getClientesSinPago() {
     const pagos = await getPagos()
     const clientes = await getClientes()
 
@@ -111,7 +108,7 @@ async function getClientesSinPago() {
 // getClientesSinPago()
 
 // 4. Devuelve el nombre de los clientes que han hecho pagos y el nombre de sus representantes junto con la ciudad de la oficina a la que pertenece el representante.
-async function getClientesConPagoYRepresentanteDeVentasYCiudad() {
+export async function getClientesConPagoYRepresentanteDeVentasYCiudad() {
     const pagos = await getPagos()
     const codesClient = pagos.map(({ code_client, payment }) => ({ code_client, payment }))
 
@@ -134,7 +131,7 @@ async function getClientesConPagoYRepresentanteDeVentasYCiudad() {
 // getClientesConPagoYRepresentanteDeVentasYCiudad()
 
 // 5. Devuelve el nombre de los clientes que no hayan hecho pagos y el nombre de sus representantes junto con la ciudad de la oficina a la que pertenece el representante.
-async function getClientesSinPagoYRepresentanteDeVentasYCiudad() {
+export async function getClientesSinPagoYRepresentanteDeVentasYCiudad() {
     const pagos = await getPagos()
     const clientes = await getClientes()
 
@@ -160,7 +157,7 @@ async function getClientesSinPagoYRepresentanteDeVentasYCiudad() {
 
 // 7. Devuelve el nombre de los clientes y el nombre de sus representantes junto con la ciudad de la oficina a la que pertenece el representante.
 
-async function getClienteYRepresentanteDeVentasYCiudad() {
+export async function getClienteYRepresentanteDeVentasYCiudad() {
     const clientes = await getClientes()
     const clientesInfo = clientes.map(({ client_name, code_employee_sales_manager }) => ({ client_name, code_employee_sales_manager }))
 
@@ -178,4 +175,4 @@ async function getClienteYRepresentanteDeVentasYCiudad() {
     console.log(await Promise.all(data));
 }
 
-getClienteYRepresentanteDeVentasYCiudad()
+// getClienteYRepresentanteDeVentasYCiudad()

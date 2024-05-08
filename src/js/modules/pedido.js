@@ -1,17 +1,17 @@
 import {pedidosPorAno, peddidosPorMes} from "../utils"
 
 async function getPedidos() {
-    const response = await fetch("http://localhost:3000/requests")
+    const response = await fetch("http://localhost:5504/requests")
     return await response.json()
 }
 
 async function getPedidosPorEstado(estado) {
-    const response = await fetch(`http://localhost:3000/requests?status=${estado}`)
+    const response = await fetch(`http://localhost:5504/requests?status=${estado}`)
     return await response.json()
 }
 
 async function getPedidosPorAno(ano) {
-    const response = await fetch(`http://localhost:3000/requests?date_wait=${ano}`)
+    const response = await fetch(`http://localhost:5504/requests?date_wait=${ano}`)
     return await response.json()
 }
 
@@ -95,7 +95,7 @@ async function getPedidosRechazados2009() {
 // 12. Devuelve un listado de todos los pedidos que han sido entregados en el mes de enero de cualquier año.
 
 async function getPedidosEnero() {
-    const response = await fetch("http://localhost:3000/requests?status=Entregado")
+    const response = await fetch("http://localhost:5504/requests?status=Entregado")
     const pedidos = await response.json()
     const pedidosEntregados = pedidos.filter(({date_request}) => pedidosPorMes(date_request, 1))
     console.log(pedidosEntregados);
