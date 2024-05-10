@@ -1,7 +1,7 @@
 import { 
     getAllOfficesCodeAndCity, 
     getAllOfficesFromSpainCityAndMovil 
-} from "./module/offices.js";
+} from "./module/oficina.js";
 
 import { 
     getAllEmployeesWithBossAndCodeSeven,
@@ -9,10 +9,10 @@ import {
     getAllEmployeesNotSalesReps,
     getAll3,
     getAll
-} from "./module/employees.js";
+} from "./module/empleados.js";
 import { 
     getAll2,
     getClientsEmploy
-} from "./module/clients.js";
+} from "./module/clientes.js";
 
 console.log(await getAll());
