@@ -41,7 +41,7 @@ export async function getClientesMadrid() {
     const response2 = await fetch("http://localhost:3000/clients?city=Madrid&code_employee_sales_manager=30")
     const clientes1 = await response1.json()
     const clientes2 = await response2.json()
-    console.log(...clientes1, ...clientes2);
+    return [...clientes1, ...clientes2]
 }
 
 // getClientesMadrid()
@@ -172,7 +172,9 @@ export async function getClienteYRepresentanteDeVentasYCiudad() {
             "city": oficina[0].city
         }
     })
+    console.log('Holaaaaaaaaa');
     console.log(await Promise.all(data));
+    return (await Promise.all(data));
 }
 
 // getClienteYRepresentanteDeVentasYCiudad()
@@ -180,7 +182,7 @@ export async function getClienteYRepresentanteDeVentasYCiudad() {
 // 7. Devuelve el nombre de los clientes y el nombre de sus representantes 
 // junto con la ciudad de la oficina a la que pertenece el representante.
 export const getClientsEmploy = async() =>{
-    let res = await fetch("http://localhost:5501/clients");
+    let res = await fetch("http://localhost:3000/clientes");
     let clients = await res.json();
     for (let i = 0; i < clients.length; i++) {
         let {

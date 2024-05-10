@@ -1,21 +1,69 @@
-import { 
-    getClientesMadrid, 
-    getClientsEmploy 
+import {
+    getClientesMadrid,
+    getClienteYRepresentanteDeVentasYCiudad
 } from "../module/clientes.js";
 import {
-    getAllEmployNotClients 
+    getAllEmployNotClients
 } from "../module/empleados.js";
 
-export class Mycard extends HTMLElement{
-    constructor(){
-        super();
-        this.attachShadow({mode: "open"});
-        this.shadowRoot.innerHTML = /*html*/`
-            <link rel="stylesheet" href="../css/myCard.css">  
-        `
+const styles = /*html*/`
+<style>
+    @scope {
+        .report__card{
+            /* background: red; */
+            margin: 10px 0px 0px
+        }
+        .card__title{
+            background: var(--color2);
+            color: var(--color8);
+            font-family: "Roboto-Bold";
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+        }
+        .card__body{
+            background: var(--color8);
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            padding: 10px 15px 10px;
+        }
+        .body__marck{
+            border: 1px solid var(--color6);
+            padding: 10px;
+        }
+        .card__body b{
+            color: var(--color5);
+        }
+        .card__body p{
+            margin: 10px 0;
+            color: var(--color6);
+        }
+        .card__footer{
+            background: var(--color2);
+            color: var(--color8);
+            font-family: "Roboto-Bold";
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+        }
     }
-    async getClientsEmployDesign(){
-        let data = await getClientsEmploy();
+</style>
+`
+export class Mycard extends HTMLElement {
+    constructor() {
+        super();
+        this.attachShadow({ mode: "open" });
+        this.shadowRoot.innerHTML = styles
+    }
+    // <link rel="stylesheet" href="../css/myCard.css">
+    async getClienteYRepresentanteDeVentasYCiudadDesign() {
+        let data = await getClienteYRepresentanteDeVentasYCiudad();
         data.forEach(val => {
             this.shadowRoot.innerHTML += /*html*/`
                 <div class="report__card">
@@ -32,7 +80,7 @@ export class Mycard extends HTMLElement{
             `;
         });
     }
-    async getClientesMadridDesign(){
+    async getClientesMadridDesign() {
         let data = await getClientesMadrid();
         data.forEach(val => {
             let money = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(val.limit_credit);
@@ -57,7 +105,7 @@ export class Mycard extends HTMLElement{
             `;
         });
     }
-    async getAllEmployNotClientsDesign(){
+    async getAllEmployNotClientsDesign() {
         let data = await getAllEmployNotClients();
         data.forEach(val => {
             this.shadowRoot.innerHTML += /*html*/`
@@ -84,8 +132,8 @@ export class Mycard extends HTMLElement{
         return ["logic"];
     }
     attributeChangedCallback(name, old, now) {
-        if(name=="logic" && now=="client_6") this.getClientsEmployDesign()
-        if(name=="logic" && now=="client_16") this.getClientesMadridDesign()
-        if(name=="logic" && now=="employ_12") this.getAllEmployNotClientsDesign()
+        if (name == "logic" && now == "client_6") this.getClienteYRepresentanteDeVentasYCiudadDesign()
+        if (name == "logic" && now == "client_16") this.getClientesMadridDesign()
+        if (name == "logic" && now == "employ_12") this.getAllEmployNotClientsDesign()
     }
 }
