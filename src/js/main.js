@@ -15,4 +15,4 @@ import {
     getClientsEmploy
 } from "./module/clientes.js";
 
-console.log(await getAll());
+// console.log(await getAll());

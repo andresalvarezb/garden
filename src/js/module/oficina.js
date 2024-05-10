@@ -51,4 +51,4 @@ async function getOficinasConClientesPorCiudad(ciudad) {
     console.log(await Promise.all(data));
 }
 
-getOficinasConClientesPorCiudad("Fuenlabrada")
+// getOficinasConClientesPorCiudad("Fuenlabrada")

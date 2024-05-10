@@ -1,21 +1,21 @@
 import { 
     getClientesMadrid, 
-    getClienteYRepresentanteDeVentasYCiudad 
-} from "../modules/clientes.js";
+    getClientsEmploy 
+} from "../module/clientes.js";
 import {
     getAllEmployNotClients 
-} from "../modules/empleados.js";
+} from "../module/empleados.js";
 
 export class Mycard extends HTMLElement{
     constructor(){
         super();
         this.attachShadow({mode: "open"});
         this.shadowRoot.innerHTML = /*html*/`
-            <link rel="stylesheet" href="../../css/myCard.css">  
+            <link rel="stylesheet" href="../css/myCard.css">  
         `
     }
-    async getClienteYRepresentanteDeVentasYCiudadDesign(){
-        let data = await getClienteYRepresentanteDeVentasYCiudad();
+    async getClientsEmployDesign(){
+        let data = await getClientsEmploy();
         data.forEach(val => {
             this.shadowRoot.innerHTML += /*html*/`
                 <div class="report__card">
@@ -84,10 +84,8 @@ export class Mycard extends HTMLElement{
         return ["logic"];
     }
     attributeChangedCallback(name, old, now) {
-        if(name=="logic" && now=="client_6") this.getClienteYRepresentanteDeVentasYCiudadDesign()
+        if(name=="logic" && now=="client_6") this.getClientsEmployDesign()
         if(name=="logic" && now=="client_16") this.getClientesMadridDesign()
         if(name=="logic" && now=="employ_12") this.getAllEmployNotClientsDesign()
     }
 }
-
-document.createElement('div')
