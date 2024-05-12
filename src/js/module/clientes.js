@@ -8,7 +8,7 @@ export async function getClientes() {
     return clientes
 }
 
-async function getClienteById(id) {
+export async function getClienteById(id) {
     const response = await fetch(`http://localhost:3000/clients?client_code=${id}`)
     return await response.json()
 }
@@ -64,7 +64,7 @@ export async function getClienteYRepresentanteDeVentas() {
             "sales_manager": `${representante[0].name} ${representante[0].lastname1}`
         }
     })
-    console.log(await Promise.all(data));
+    return (await Promise.all(data));
 }
 
 // getClienteYRepresentanteDeVentas()
@@ -87,7 +87,7 @@ export async function getClientesConPagoYRepresentanteDeVentas() {
         }
     })
 
-    console.log(await Promise.all(data));
+    return (await Promise.all(data));
 }
 
 // getClientesConPagoYRepresentanteDeVentas()
@@ -102,7 +102,7 @@ export async function getClientesSinPago() {
     const codeClientesFromPayments = pagos.map(({code_client}) => code_client)
     const clientesSinPago = clientes.filter(({client_code}) => !codeClientesFromPayments.includes(client_code))
 
-    console.log(clientesSinPago);
+    return(clientesSinPago);
 }
 
 // getClientesSinPago()
@@ -126,7 +126,7 @@ export async function getClientesConPagoYRepresentanteDeVentasYCiudad() {
         }
     })
 
-    console.log(await Promise.all(data));
+    return(await Promise.all(data));
 }
 // getClientesConPagoYRepresentanteDeVentasYCiudad()
 
@@ -149,7 +149,7 @@ export async function getClientesSinPagoYRepresentanteDeVentasYCiudad() {
     })
 
 
-    console.log(await Promise.all(data));
+    return(await Promise.all(data));
 }
 
 // getClientesSinPagoYRepresentanteDeVentasYCiudad()
@@ -172,8 +172,6 @@ export async function getClienteYRepresentanteDeVentasYCiudad() {
             "city": oficina[0].city
         }
     })
-    console.log('Holaaaaaaaaa');
-    console.log(await Promise.all(data));
     return (await Promise.all(data));
 }
 

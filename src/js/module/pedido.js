@@ -17,7 +17,7 @@ async function getPedidosPorAno(ano) {
 
 // 7. Devuelve un listado con los distintos estados por los que puede pasar un pedido.
 
-async function getEstadosDeUnPedido() {
+export async function getEstadosDeUnPedido() {
     const pedidos = await getPedidos()
     const estados = []
     for (let i = 0; i < pedidos.length; i++) {
@@ -25,21 +25,21 @@ async function getEstadosDeUnPedido() {
             estados.push(pedidos[i].status)
         }
     }
-    console.log(estados);
+    return (estados);
 }
 
 // getEstadosDeUnPedido()
 
 // 9. Devuelve un listado con el código de pedido, código de cliente, fecha esperada y fecha de entrega de los pedidos que no han sido entregados a tiempo.
 
-async function getPedidosPendientes() {
+export async function getPedidosPendientes() {
     const pedidos = await getPedidosPorEstado("Pendiente")
     const pedidosPendientes = pedidos.map((
         { code_request, code_client, date_wait, date_request }
     ) => (
         { code_request, code_client, date_wait, date_request }
     ))
-    console.log(pedidosPendientes);
+    return (pedidosPendientes);
 }
 
 // getPedidosSinEntregar()
@@ -54,7 +54,7 @@ function obtenerNumeroDias(mes, año) {
     return ultimoDiaDelMes.getDate();
 }
 
-async function getPedidosAntesDeFecha() {
+export async function getPedidosAntesDeFecha() {
     const pedidos = await getPedidosPorEstado("Entregado")
 
     const pedidosEntregados = []
@@ -77,28 +77,28 @@ async function getPedidosAntesDeFecha() {
             }
         }
     })
-    console.log(pedidosEntregados);
+    return (pedidosEntregados);
 }
 
 // getPedidosAntesDeFecha()
 
 // 11. Devuelve un listado de todos los pedidos que fueron rechazados en 2009.
 
-async function getPedidosRechazados2009() {
+export async function getPedidosRechazados2009() {
     const pedidosRechazados = await getPedidosPorEstado("Rechazados")
     const pedidos = pedidosRechazados.filter(({date_wait}) => pedidosPorAno(date_wait, 2009))
-    console.log(pedidos);
+    return (pedidos);
 }
 
 // getPedidosRechazados2009()
 
 // 12. Devuelve un listado de todos los pedidos que han sido entregados en el mes de enero de cualquier año.
 
-async function getPedidosEnero() {
+export async function getPedidosEnero() {
     const response = await fetch("http://localhost:5504/requests?status=Entregado")
     const pedidos = await response.json()
     const pedidosEntregados = pedidos.filter(({date_request}) => pedidosPorMes(date_request, 1))
-    console.log(pedidosEntregados);
+    return (pedidosEntregados);
 }
 
-getPedidosEnero()
+// getPedidosEnero()

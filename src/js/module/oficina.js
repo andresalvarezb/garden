@@ -17,18 +17,18 @@ async function getOficinasPorPais(pais) {
 }
 
 // 1. Devuelve un listado con el código de oficina y la ciudad donde hay oficinas.
-async function getCodigoYCiudadPorOficina() {
+export async function getCodigoYCiudadPorOficina() {
     const oficinas = await getOficinas();
     const infoOficinas = oficinas.map(({ code_office, city }) => ({ code_office, city }));
-    console.log(infoOficinas);
+    return (infoOficinas);
 }
 // getCodigoYCiudadPorOficina()
 
 // 2. Devuelve un listado con la ciudad y el teléfono de las oficinas de España.
-async function getCiudadYTelefonoPorPais(pais) {
+export async function getCiudadYTelefonoPorPais(pais) {
     const oficinas = await getOficinasPorPais(pais);
     const infoOficinas = oficinas.map(({ city, movil }) => ({ city, movil }));
-    console.log(infoOficinas);
+    return (infoOficinas);
 }
 // getCiudadYTelefonoPorPais("Francia")
 
@@ -36,7 +36,7 @@ async function getCiudadYTelefonoPorPais(pais) {
 
 // MULTITABLA
 // 6. Lista la dirección de las oficinas que tengan clientes en Fuenlabrada.
-async function getOficinasConClientesPorCiudad(ciudad) {
+export async function getOficinasConClientesPorCiudad(ciudad) {
     const clientes = await getClientesPorCiudad(ciudad)
     
     const data = clientes.map(async ({code_employee_sales_manager}) =>{
@@ -48,7 +48,7 @@ async function getOficinasConClientesPorCiudad(ciudad) {
         }
     })
 
-    console.log(await Promise.all(data));
+    return (await Promise.all(data));
 }
 
 // getOficinasConClientesPorCiudad("Fuenlabrada")

@@ -1,3 +1,5 @@
+import { getClientes, getClienteById } from "./clientes.js"
+
 export async function getEmpleados() {
     const response = await fetch(`http://localhost:5501/employee`)
     return await response.json()
@@ -31,7 +33,7 @@ export async function getEmpleadosPorJefe(codigoJefe) {
     const empleados = await response.json()
 
     const empleadosInfo = empleados.map(({ name, lastname1, lastname2, email }) => ({ name, lastname1, lastname2, email }))
-    console.log(empleadosInfo);
+    return(empleadosInfo);
 }
 
 // getEmpleadosPorJefe(3)
@@ -41,7 +43,7 @@ export async function getEmpleadosPorJefe(codigoJefe) {
 export async function getInfoJefe() {
     const empleados = await getEmpleados()
     const infojefe = empleados.fillter(empleado => empleado.code_boss == null)
-    console.log(
+    return(
         {
             "position": infojefe.position,
             "name": infojefe.name,
@@ -59,7 +61,7 @@ export async function getInfoJefe() {
 export async function getEmpleadoByRol(rol, es) {
     const empleados = await getEmpleadoPorRol(rol, es)
     const empleadosInfo = empleados.map(({name, lastname1, lastname2, position}) => ({ name, lastname1, lastname2, position }))
-    console.log(empleadosInfo);
+    return(empleadosInfo);
 }
 
 // getEmpleadoByRol("Representante Ventas")
@@ -73,7 +75,6 @@ export async function getEmpleadoConJefe() {
 
     const data = await Promise.all(empleados.map(async (empleado) => {
         const jefe = await getEmpleadoPorId(empleado.code_boss)
-        // console.log(jefe[0].name)
         return {
             "name": empleado.name,
             // Preguntar como acceder a las propiedades de dicho objeto
@@ -81,7 +82,7 @@ export async function getEmpleadoConJefe() {
         }
     }))
 
-    console.log(data);
+    return(data);
 }
 
 // getEmpleadoConJefe()
@@ -112,8 +113,8 @@ export async function getEmpleadoConJefes() {
 // tienen clientes asociados y el nombre de su jefe asociado
 // ! Compiado de MIGUEL
 export const getAllEmployNotClients = async()=>{
-    let dataClients = await getAllClients();
-    let dataEmployees = await getAllEmploy();
+    let dataClients = await getClientes();
+    let dataEmployees = await getEmpleados();
     let code_employee_sales_manager = [...new Set(dataClients.map(val => val.code_employee_sales_manager))]
     let employee_code = dataEmployees.map(val => val.employee_code)
     let codes = [
@@ -123,7 +124,7 @@ export const getAllEmployNotClients = async()=>{
     let code = codes.reduce((resultado, array) => resultado.filter(elemento => !array.includes(elemento)).concat(array.filter(elemento => !resultado.includes(elemento))))
     let employees = []
     for (let i = 0; i < code.length; i++) {
-        let searchingEmployees = async() => await getEmployByCode(code[i])
+        let searchingEmployees = async() => await getClienteById(code[i])
         let [employee] = await searchingEmployees()
         if(!employee.code_boss) {
             let {
@@ -134,7 +135,7 @@ export const getAllEmployNotClients = async()=>{
             employees.push(employeeUpdate)
             continue
         }
-        let searchedBoss = async() => await getEmployByCode(employee.code_boss)
+        let searchedBoss = async() => await getClienteById(employee.code_boss)
         let [boos] = await searchedBoss()
         let {
             code_boss,

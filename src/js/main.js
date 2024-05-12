@@ -17,20 +17,32 @@
 
 // // console.log(await getAll());
 
-class AppElement extends HTMLElement {
-    constructor() {
-      super();
-      this.attachShadow({ mode: "open" });
-    }
+// class AppElement extends HTMLElement {
+//     constructor() {
+//       super();
+//       this.attachShadow({ mode: "open" });
+//     }
   
-    connectedCallback() {
-      this.shadowRoot.innerHTML = /* html */`
-        <div class="container">
-          <h2>Títular del componente</h2>
-          <p>Texto y descripción del contenido del componente.</p>
-        </div>
-      `;
-    }
-  }
+//     connectedCallback() {
+//       this.shadowRoot.innerHTML = /* html */`
+//         <style>
+//           app-element:not(:defined) {
+//             display: block;
+//             height: 46px;
+//             background: linear-gradient(grey, lightgrey);
+//           }
+
+//           app-element:defined {
+//             display: block;
+//             border: 2px solid red;
+//           }
+//         </style>
+//         <div class="container">
+//           <h2>Títular del componente</h2>
+//           <p>Texto y descripción del contenido del componente.</p>
+//         </div>
+//       `;
+//     }
+//   }
   
-  customElements.define("app-element", AppElement);
+//   customElements.define("app-element", AppElement);

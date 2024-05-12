@@ -110,8 +110,8 @@ body {
 .report__details {
     /* background: violet; */
     margin-top: var(--layout-box-y);
-    height: 290px;
-    overflow-y: scroll;
+    /* height: 290px; */
+    /* overflow-y: scroll; */
 }
 
 .report__container{
