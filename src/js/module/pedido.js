@@ -59,9 +59,7 @@ export async function getPedidosAntesDeFecha() {
 
     const pedidosEntregados = []
 
-    pedidos.forEach(pedido => {
-        let { code_request, code_client, date_wait, date_request } = pedido
-
+    pedidos.forEach(({ code_request, code_client, date_wait, date_request }) => {
         let dateWait = new Date(date_wait)
         let dateRequest = new Date(date_request)
 
@@ -85,7 +83,7 @@ export async function getPedidosAntesDeFecha() {
 // 11. Devuelve un listado de todos los pedidos que fueron rechazados en 2009.
 
 export async function getPedidosRechazados2009() {
-    const pedidosRechazados = await getPedidosPorEstado("Rechazados")
+    const pedidosRechazados = await getPedidosPorEstado("Rechazado")
     const pedidos = pedidosRechazados.filter(({date_wait}) => pedidosPorAno(date_wait, 2009))
     return (pedidos);
 }

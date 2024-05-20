@@ -493,7 +493,6 @@ export class Mycard extends HTMLElement {
     async getPedidosPendientesDesign() {
         const data = await getPedidosPendientes();
         data.forEach((val) => {
-           
             this.shadowRoot.innerHTML += /*html */ `
             <div class="report__card">
                 <div class="card__title">
@@ -515,7 +514,6 @@ export class Mycard extends HTMLElement {
     async getPedidosAntesDeFechaDesign() {
         const data = await getPedidosAntesDeFecha();
         data.forEach((val) => {
-           
             this.shadowRoot.innerHTML += /*html */ `
             <div class="report__card">
                 <div class="card__title">
@@ -537,7 +535,7 @@ export class Mycard extends HTMLElement {
     async getPedidosRechazados2009Design() {
         const data = await getPedidosRechazados2009();
         data.forEach((val) => {
-           
+            // console.log(val)
             this.shadowRoot.innerHTML += /*html */ `
             <div class="report__card">
                 <div class="card__title">
@@ -609,7 +607,7 @@ export class Mycard extends HTMLElement {
         if (name == "logic" && now == "request_9")
             this.getPedidosPendientesDesign();
         if (name == "logic" && now == "request_10")
-            this.getPedidosRechazados2009Design();
+            this.getPedidosAntesDeFechaDesign();
         if (name == "logic" && now == "request_11")
             this.getPedidosRechazados2009Design();
         if (name == "logic" && now == "request_12")
