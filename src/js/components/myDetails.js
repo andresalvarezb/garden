@@ -79,6 +79,7 @@ export class Mydetails extends HTMLElement {
 
     connectedCallback() {
         this.myCard.setAttribute("logic", Mydetails.query);
+        console.log(Mydetails.query);
     }
 
     static get observedAttributes() {

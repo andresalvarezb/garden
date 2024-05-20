@@ -1,4 +1,4 @@
-export default function pedidosPorAno(fecha, ano) {
+export function pedidosPorAno(fecha, ano) {
     const dateWait = new Date(fecha)
     return dateWait.getFullYear() == ano ? true : false
 }

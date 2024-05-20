@@ -615,8 +615,6 @@ export class Mycard extends HTMLElement {
             this.getPedidosRechazados2009Design();
         if (name == "logic" && now == "request_12")
             this.getPedidosEneroDesign();
-        
-        
 
 
 

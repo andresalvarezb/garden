@@ -1,4 +1,4 @@
-import {pedidosPorAno, peddidosPorMes} from "../utils"
+import {pedidosPorAno, pedidosPorMes} from "../utils/index.js"
 
 async function getPedidos() {
     const response = await fetch("http://localhost:5504/requests")
