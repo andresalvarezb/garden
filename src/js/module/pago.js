@@ -29,7 +29,6 @@ export async function getPagosPaypal() {
     const response = await fetch("http://localhost:5502/payments?payment=PayPal")
     const pagos = await response.json()
     const pagosRealizados = pagos.filter(({date_payment}) => pedidosPorAno(date_payment, 2008))
-
     return (pagosRealizados);
 }
 

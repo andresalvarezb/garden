@@ -337,7 +337,7 @@ export class Mycard extends HTMLElement {
     async getEmpleadoConJefeDesign() {
         const data = await getEmpleadoConJefe();
         data.forEach((val) => {
-            console.log(val);
+           
             this.shadowRoot.innerHTML += /*html */ `
             <div class="report__card">
                 <div class="card__title">
@@ -357,7 +357,7 @@ export class Mycard extends HTMLElement {
     async getEmpleadoConJefesDesign() {
         const data = await getEmpleadoConJefes();
         data.forEach((val) => {
-            console.log(val);
+           
             this.shadowRoot.innerHTML += /*html */ `
             <div class="report__card">
                 <div class="card__title">
@@ -416,7 +416,6 @@ export class Mycard extends HTMLElement {
     async getOficinasConClientesPorCiudadDesign() {
         const data = await getOficinasConClientesPorCiudad('Miami');
         data.forEach((val) => {
-            console.log(val);
             this.shadowRoot.innerHTML += /*html */ `
             <div class="report__card">
                 <div class="card__title">
@@ -435,17 +434,10 @@ export class Mycard extends HTMLElement {
     async getClientesPagosMayorA2008Design() {
         const data = await getClientesPagosMayorA2008();
         data.forEach((val) => {
-            console.log(val);
             this.shadowRoot.innerHTML += /*html */ `
             <div class="report__card">
                 <div class="card__title">
-                    <div>${val.code_client}</div>
-                </div>
-                <div class="card__body">
-                    <div class="body__marck">
-                        <p><b>Date: </b>${val.date_payment}</p>
-                        <p><b>Total: </b>${val.total}</p>
-                    </div>
+                    <div>Codigo cliente: ${val}</div>
                 </div>
             </div>
             `;
@@ -458,13 +450,7 @@ export class Mycard extends HTMLElement {
             this.shadowRoot.innerHTML += /*html */ `
             <div class="report__card">
                 <div class="card__title">
-                    <div>${val.payment}</div>
-                </div>
-                <div class="card__body">
-                    <div class="body__marck">
-                        <p><b>Date: </b>${val.date_payment}</p>
-                        <p><b>Total: </b>${val.total}</p>
-                    </div>
+                    <div>${val}</div>
                 </div>
             </div>
             `;
@@ -474,7 +460,6 @@ export class Mycard extends HTMLElement {
     async getPagosPaypalDesign() {
         const data = await getPagosPaypal();
         data.forEach((val) => {
-            console.log(val);
             this.shadowRoot.innerHTML += /*html */ `
             <div class="report__card">
                 <div class="card__title">
@@ -494,7 +479,7 @@ export class Mycard extends HTMLElement {
     async getEstadosDeUnPedidoDesign() {
         const data = await getEstadosDeUnPedido();
         data.forEach((val) => {
-            console.log(val);
+           
             this.shadowRoot.innerHTML += /*html */ `
             <div class="report__card">
                 <div class="card__title">
@@ -508,7 +493,7 @@ export class Mycard extends HTMLElement {
     async getPedidosPendientesDesign() {
         const data = await getPedidosPendientes();
         data.forEach((val) => {
-            console.log(val);
+           
             this.shadowRoot.innerHTML += /*html */ `
             <div class="report__card">
                 <div class="card__title">
@@ -530,7 +515,7 @@ export class Mycard extends HTMLElement {
     async getPedidosAntesDeFechaDesign() {
         const data = await getPedidosAntesDeFecha();
         data.forEach((val) => {
-            console.log(val);
+           
             this.shadowRoot.innerHTML += /*html */ `
             <div class="report__card">
                 <div class="card__title">
@@ -552,7 +537,7 @@ export class Mycard extends HTMLElement {
     async getPedidosRechazados2009Design() {
         const data = await getPedidosRechazados2009();
         data.forEach((val) => {
-            console.log(val);
+           
             this.shadowRoot.innerHTML += /*html */ `
             <div class="report__card">
                 <div class="card__title">
@@ -574,7 +559,7 @@ export class Mycard extends HTMLElement {
     async getPedidosEneroDesign() {
         const data = await getPedidosEnero();
         data.forEach((val) => {
-            console.log(val);
+           
             this.shadowRoot.innerHTML += /*html */ `
             <div class="report__card">
                 <div class="card__title">
@@ -617,8 +602,8 @@ export class Mycard extends HTMLElement {
         if (name == "logic" && now == "payment_8")
             this.getClientesPagosMayorA2008Design();
         if (name == "logic" && now == "payment_13")
-            this.getFormasDePagoDesign();
-        if (name == "logic" && now == "payment_14") this.getPagosPaypalDesign();
+            this.getPagosPaypalDesign();
+        if (name == "logic" && now == "payment_14") this.getFormasDePagoDesign();
         if (name == "logic" && now == "request_7")
             this.getEstadosDeUnPedidoDesign();
         if (name == "logic" && now == "request_9")
