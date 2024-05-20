@@ -21,6 +21,8 @@ export class Mydetails extends HTMLElement {
                 display: flex;
                 color: var(--color2);
                 align-items: center;
+                overflow-x:scroll;
+                overflow-y:hidden;
             }
             summary {
                 list-style: none;
@@ -36,7 +38,7 @@ export class Mydetails extends HTMLElement {
                 content: '';
                 width: 40px;
                 height: 40px;
-                background: url('../storage/img/arrow.svg') no-repeat;
+                background: url('../../storage/img/arrow.svg') no-repeat;
                 background-size: cover;
                 transition: 0.2s;
             }
@@ -63,7 +65,8 @@ export class Mydetails extends HTMLElement {
             <summary>
                 <div class="details__description">Campus: </div>
                 <div class="details__container">
-                    <p><marquee behavior="" direction="">...</marquee></p>
+                    <!--<p><marquee behavior="" direction="">...</marquee></p> -->
+                    <p id='marquee'></p>
                 </div>
             </summary>
             <div class="report__container">
@@ -73,13 +76,12 @@ export class Mydetails extends HTMLElement {
         `;
 
         this.myCard = this.shadowRoot.querySelector("my-card");
-        this.marquee = this.shadowRoot.querySelector("marquee");
+        this.marquee = this.shadowRoot.getElementById("marquee");
         this.details = this.shadowRoot.querySelector("details");
     }
 
     connectedCallback() {
         this.myCard.setAttribute("logic", Mydetails.query);
-        console.log(Mydetails.query);
     }
 
     static get observedAttributes() {

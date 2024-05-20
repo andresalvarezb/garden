@@ -1,4 +1,5 @@
 import {
+    getClientesDeEspana,
     getClientesMadrid,
     getClienteYRepresentanteDeVentasYCiudad,
     getClienteYRepresentanteDeVentas,
@@ -13,26 +14,25 @@ import {
     getInfoJefe,
     getEmpleadoByRol,
     getEmpleadoConJefe,
-    getEmpleadoConJefes
+    getEmpleadoConJefes,
 } from "../module/empleados.js";
 import {
     getCiudadYTelefonoPorPais,
     getCodigoYCiudadPorOficina,
-    getOficinasConClientesPorCiudad
+    getOficinasConClientesPorCiudad,
 } from "../module/oficina.js";
 import {
     getClientesPagosMayorA2008,
     getFormasDePago,
-    getPagosPaypal
+    getPagosPaypal,
 } from "../module/pago.js";
 import {
     getEstadosDeUnPedido,
     getPedidosAntesDeFecha,
     getPedidosEnero,
     getPedidosPendientes,
-    getPedidosRechazados2009
+    getPedidosRechazados2009,
 } from "../module/pedido.js";
-
 
 // STYLES
 const styles = /*html*/ `
@@ -90,6 +90,23 @@ export class Mycard extends HTMLElement {
         this.shadowRoot.innerHTML = styles;
     }
 
+    async getClientesDeEspanaDesign() {
+        let data = await getClientesDeEspana();
+        data.forEach((val) => {
+            this.shadowRoot.innerHTML += /*html*/ `
+                <div class="report__card">
+                    <div class="card__title">
+                        <div>Spain</div>
+                    </div>
+                    <div class="card__body">
+                        <div class="body__marck">
+                            <p><b>Nombre del cliente: </b>${val.client_name}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+    }
     async getClienteYRepresentanteDeVentasYCiudadDesign() {
         let data = await getClienteYRepresentanteDeVentasYCiudad();
         data.forEach((val) => {
@@ -100,7 +117,7 @@ export class Mycard extends HTMLElement {
                     </div>
                     <div class="card__body">
                         <div class="body__marck">
-                            <p><b>Nombre del empleado: </b>${val.name_employee}</p>
+                            <p><b>Nombre del empleado: </b>${val.client_name}</p>
                             <p><b>Ciudad: </b>${val.city}</p>
                         </div>
                     </div>
@@ -266,12 +283,12 @@ export class Mycard extends HTMLElement {
             this.shadowRoot.innerHTML += /*html */ `
             <div class="report__card">
                 <div class="card__title">
-                    <div>${val.code_boss}</div>
+                    <div>Code boss: ${val.code_boss}</div>
                 </div>
                 <div class="card__body">
                     <div class="body__marck">
-                        <p><b>Nombre del empleado: </b>${val.name}</p>
-                        <p><b>Posicion: </b>${val.position}</p>
+                        <p><b>Nombre del empleado: </b>${val.name} ${val.lastname1} ${val.lastname2}</p>
+                        <p><b>Email: </b>${val.email}</p>
                     </div>
                 </div>
             </div>
@@ -297,7 +314,7 @@ export class Mycard extends HTMLElement {
             `;
         });
     }
-    
+
     async getEmpleadoByRolDesign() {
         const data = await getEmpleadoByRol("Representante Ventas", true);
         data.forEach((val) => {
@@ -316,7 +333,7 @@ export class Mycard extends HTMLElement {
             `;
         });
     }
- 
+
     async getEmpleadoConJefeDesign() {
         const data = await getEmpleadoConJefe();
         data.forEach((val) => {
@@ -357,11 +374,10 @@ export class Mycard extends HTMLElement {
             `;
         });
     }
-    
-    asyncgetCodigoYCiudadPorOficinaDesign() {
-        const data = awaitgetCodigoYCiudadPorOficina();
+
+    async getCodigoYCiudadPorOficinaDesign() {
+        const data = await getCodigoYCiudadPorOficina();
         data.forEach((val) => {
-            console.log(val);
             this.shadowRoot.innerHTML += /*html */ `
             <div class="report__card">
                 <div class="card__title">
@@ -377,11 +393,10 @@ export class Mycard extends HTMLElement {
             `;
         });
     }
-    
+
     async getCiudadYTelefonoPorPaisDesign() {
         const data = await getCiudadYTelefonoPorPais("EEUU");
         data.forEach((val) => {
-            console.log(val);
             this.shadowRoot.innerHTML += /*html */ `
             <div class="report__card">
                 <div class="card__title">
@@ -397,9 +412,9 @@ export class Mycard extends HTMLElement {
             `;
         });
     }
-   
+
     async getOficinasConClientesPorCiudadDesign() {
-        const data = await getOficinasConClientesPorCiudad();
+        const data = await getOficinasConClientesPorCiudad('Miami');
         data.forEach((val) => {
             console.log(val);
             this.shadowRoot.innerHTML += /*html */ `
@@ -416,7 +431,7 @@ export class Mycard extends HTMLElement {
             `;
         });
     }
-    
+
     async getClientesPagosMayorA2008Design() {
         const data = await getClientesPagosMayorA2008();
         data.forEach((val) => {
@@ -455,7 +470,7 @@ export class Mycard extends HTMLElement {
             `;
         });
     }
-    
+
     async getPagosPaypalDesign() {
         const data = await getPagosPaypal();
         data.forEach((val) => {
@@ -555,7 +570,7 @@ export class Mycard extends HTMLElement {
             `;
         });
     }
-    
+
     async getPedidosEneroDesign() {
         const data = await getPedidosEnero();
         data.forEach((val) => {
@@ -584,6 +599,8 @@ export class Mycard extends HTMLElement {
 
     attributeChangedCallback(name, old, now) {
         if (name == "logic" && now == "client_6")
+            this.getClientesDeEspanaDesign();
+        if (name == "logic" && now == "client_7")
             this.getClienteYRepresentanteDeVentasYCiudadDesign();
         if (name == "logic" && now == "client_16")
             this.getClientesMadridDesign();
@@ -591,10 +608,8 @@ export class Mycard extends HTMLElement {
             this.getAllEmployNotClientsDesign();
         if (name == "logic" && now == "employ_3")
             this.getEmpleadosPorJefeDesign();
-        if (name == "logic" && now == "employ_4")
-            this.getInfoJefeDesign();
-        if (name == "logic" && now == "employ_5")
-            this.getEmpleadoByRolDesign();
+        if (name == "logic" && now == "employ_4") this.getInfoJefeDesign();
+        if (name == "logic" && now == "employ_5") this.getEmpleadoByRolDesign();
         if (name == "logic" && now == "office_1")
             this.getCodigoYCiudadPorOficinaDesign();
         if (name == "logic" && now == "office_2")
@@ -603,8 +618,7 @@ export class Mycard extends HTMLElement {
             this.getClientesPagosMayorA2008Design();
         if (name == "logic" && now == "payment_13")
             this.getFormasDePagoDesign();
-        if (name == "logic" && now == "payment_14")
-            this.getPagosPaypalDesign();
+        if (name == "logic" && now == "payment_14") this.getPagosPaypalDesign();
         if (name == "logic" && now == "request_7")
             this.getEstadosDeUnPedidoDesign();
         if (name == "logic" && now == "request_9")
@@ -615,8 +629,6 @@ export class Mycard extends HTMLElement {
             this.getPedidosRechazados2009Design();
         if (name == "logic" && now == "request_12")
             this.getPedidosEneroDesign();
-
-
 
         // MULTITABLA
         if (name == "logic" && now == "client_1")
