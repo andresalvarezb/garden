@@ -3,28 +3,28 @@ import { getOficinaPorId } from "./oficina.js";
 import getPagos from "./pago.js";
 
 export async function getClientes() {
-    const response = await fetch("http://localhost:3000/clients");
+    const response = await fetch("http://172.16.101.146:5463/clients");
     const clientes = await response.json();
     return clientes;
 }
 
 export async function getClienteById(id) {
     const response = await fetch(
-        `http://localhost:3000/clients?client_code=${id}`,
+        `http://172.16.101.146:5463/clients?client_code=${id}`,
     );
     return await response.json();
 }
 
 async function getClientesPorPais(pais) {
     const response = await fetch(
-        `http://localhost:3000/clients?country=${pais}`,
+        `http://172.16.101.146:5463/clients?country=${pais}`,
     );
     return await response.json();
 }
 
 export async function getClientesPorCiudad(ciudad) {
     const response = await fetch(
-        `http://localhost:3000/clients?city=${ciudad}`,
+        `http://172.16.101.146:5463/clients?city=${ciudad}`,
     );
     return await response.json();
 }
@@ -45,10 +45,10 @@ export async function getClientesDeEspana() {
 
 export async function getClientesMadrid() {
     const response1 = await fetch(
-        "http://localhost:3000/clients?city=Madrid&code_employee_sales_manager=11",
+        "http://172.16.101.146:5463/clients?city=Madrid&code_employee_sales_manager=11",
     );
     const response2 = await fetch(
-        "http://localhost:3000/clients?city=Madrid&code_employee_sales_manager=30",
+        "http://172.16.101.146:5463/clients?city=Madrid&code_employee_sales_manager=30",
     );
     const clientes1 = await response1.json();
     const clientes2 = await response2.json();
@@ -225,7 +225,7 @@ export async function getClienteYRepresentanteDeVentasYCiudad() {
 // 7. Devuelve el nombre de los clientes y el nombre de sus representantes
 // junto con la ciudad de la oficina a la que pertenece el representante.
 export const getClientsEmploy = async () => {
-    let res = await fetch("http://localhost:3000/clientes");
+    let res = await fetch("http://172.16.101.146:5463/clientes");
     let clients = await res.json();
     for (let i = 0; i < clients.length; i++) {
         let {

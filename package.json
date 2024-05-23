@@ -6,12 +6,12 @@
   "scripts": {
     "start": "npm run cliente & npm run empleado & npm run producto & npm run oficina & npm run pago & npm run pedido",
     "server": "json-server src/js/db/db.json",
-    "oficina": "json-server src/js/db/oficina.json -p 5503",
-    "empleado": "json-server src/js/db/empleado.json -p 5501",
-    "cliente": "json-server src/js/db/clientes.json -p 3000",
-    "pedido": "json-server src/js/db/pedido.json -p 5504",
-    "pago": "json-server src/js/db/pago.json -p 5502",
-    "producto": "json-server src/js/db/product.json -p 5505"
+    "oficina": "json-server src/js/db/oficina.json -p 5461 -h 172.16.101.146" ,
+    "empleado": "json-server src/js/db/empleado.json -p 5462 -h 172.16.101.146" ,
+    "cliente": "json-server src/js/db/clientes.json -p 5463 -h 172.16.101.146" ,
+    "pedido": "json-server src/js/db/pedido.json -p 5464 -h 172.16.101.146" ,
+    "pago": "json-server src/js/db/pago.json -p 5465 -h 172.16.101.146" ,
+    "producto": "json-server src/js/db/product.json -p 5466 -h 172.16.101.146" 
   },
   "keywords": [],
   "author": "",

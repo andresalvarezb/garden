@@ -2,20 +2,20 @@ import { getClientesPorCiudad } from "./clientes.js";
 import { getEmpleadoPorId } from "./empleados.js";
 
 async function getOficinas() {
-    const response = await fetch("http://localhost:5503/offices");
+    const response = await fetch("http://172.16.101.146:5461/offices");
     return await response.json();
 }
 
 export async function getOficinaPorId(id) {
     const response = await fetch(
-        `http://localhost:5503/offices?code_office=${id}`,
+        `http://172.16.101.146:5461/offices?code_office=${id}`,
     );
     return await response.json();
 }
 
 async function getOficinasPorPais(pais) {
     const response = await fetch(
-        `http://localhost:5503/offices?country=${pais}`,
+        `http://172.16.101.146:5461/offices?country=${pais}`,
     );
     return await response.json();
 }
